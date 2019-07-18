@@ -43,7 +43,7 @@ namespace aga_sdk_csharp.common
             return directory.FullName;
         }
 
-        public string CreateZip(FileStream file, ConfigAga configAga, string pathDir)
+        public string CreateZip(FileStream file, ConfigAga configAga, string pathDir, string path7Zdll)
         {
             string pathProperties = string.Concat(pathDir, Constants.PARAM_PROPERTIES);
             FileStream newFile = null;
@@ -74,7 +74,7 @@ namespace aga_sdk_csharp.common
             try
             {
                 //zip files
-                //SevenZipCompressor.SetLibraryPath(Path.GetFullPath("7z.dll"));
+                SevenZipBase.SetLibraryPath(Path.GetFullPath(Path.Combine(path7Zdll, "7z.dll")));
                 SevenZipCompressor szc = new SevenZipCompressor();
                 szc.CompressionLevel = CompressionLevel.Ultra;
                 szc.CompressionMode = CompressionMode.Create;

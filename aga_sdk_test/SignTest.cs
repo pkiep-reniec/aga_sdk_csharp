@@ -11,7 +11,7 @@ namespace aga_sdk_test
     [TestClass]
     public class SignTest
     {
-        private string tempDir = string.Concat(Path.GetTempPath(), @"temp_sign");
+        private string tempDir = Path.GetTempPath();
         private ReniecAgaClient reniecAgaClient;
 
         [TestMethod]
@@ -47,12 +47,14 @@ namespace aga_sdk_test
         public void Before()
         {
             ConfigAga oConfigAga = new ConfigAga();
-            oConfigAga.agaUri = "http://127.0.0.1:8080/refirma-aga/rest/service/sign-file";
+            oConfigAga.agaUri = "http://172.24.4.230:8080/refirma-aga/rest/service/sign-file";
             oConfigAga.timestamp = "true";
             oConfigAga.certificateId = "certdm";
             oConfigAga.secretPassword = "NH7PERU$$$";
 
-            reniecAgaClient = new ReniecAgaClient(oConfigAga);
+            string path7Z = @"D:\temp\library";
+
+            reniecAgaClient = new ReniecAgaClient(oConfigAga, path7Z);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using aga_sdk_csharp.common;
 using aga_sdk_csharp.dto;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -12,21 +13,23 @@ namespace aga_sdk_csharp.service
     class SignService
     {
         private static SignService __instance = null;
-     
+
         private ConfigAga configAga;
         private Utils utils;
+        private String path7Zdll;
 
-        private SignService(ConfigAga configAga)
+        private SignService(ConfigAga configAga, String path7Zdll)
         {
             this.configAga = configAga;
             this.utils = Utils.getInstance;
+            this.path7Zdll = path7Zdll;
         }
 
-        public static SignService getInstance(ConfigAga configAga)
+        public static SignService getInstance(ConfigAga configAga, String path7Zdll)
         {
             if (__instance == null)
             {
-                __instance = new SignService(configAga);
+                __instance = new SignService(configAga, path7Zdll);
             }
 
             return __instance;
@@ -42,7 +45,7 @@ namespace aga_sdk_csharp.service
             try
             {
                 string pathDir = utils.CreateTempDir();
-     
+
 
                 FileStream fileSign = await SignMetadata(file, pathDir);
 
@@ -70,7 +73,7 @@ namespace aga_sdk_csharp.service
             {
                 ServicePointManager.Expect100Continue = false;
 
-                string pathFileZip = utils.CreateZip(file, this.configAga, pathDir);
+                string pathFileZip = utils.CreateZip(file, this.configAga, pathDir, path7Zdll);
 
                 FileStream fileZip = new FileStream(pathFileZip, FileMode.Open, FileAccess.Read);
 
